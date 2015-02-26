@@ -7,6 +7,8 @@ package practice;
  * Find the median of the two sorted arrays. The overall run time complexity should be O(log (m+n)).
  *
  * Created by mukui on 1/19/15.
+ *
+ * https://oj.leetcode.com/discuss/21346/share-my-o-log-m-n-iterative-solution
  */
 public class MedianOfTwoSortedArrays {
     // locate the target in arr
@@ -33,22 +35,22 @@ public class MedianOfTwoSortedArrays {
     }
 
     public double medianLocate (int targetPos, int anotherPos, int[] A, int startA, int endA, int B[], int startB, int endB) {
-        System.out.println(startB + ", " + endB);
         int posA = startA + (endA - startA) / 2,
                 posB = binaryLocate(A[posA], B, startB, endB),
                 mergedPos = posA + posB;
 
         // B[posB] is always not smaller than A[posA], B[posB] may not exist, A[posA] always has number
         if (mergedPos == targetPos) {
-            return ((double)A[posA] + (anotherPos == targetPos ? A[posA] :
-                    (posA == A.length - 1 || (posB < B.length && B[posB] < A[posA + 1]) ? B[posB] : A[posA + 1]))) / 2;
+            return (double)A[posA] / 2 + (double)(anotherPos == targetPos ? A[posA] :
+                    (posA == A.length - 1 || (posB < B.length && B[posB] < A[posA + 1]) ? B[posB] : A[posA + 1])) / 2;
         } else if (posB < B.length && B[posB] == A[posA] && mergedPos == targetPos - 1) {
-            return ((double)B[posB] + (anotherPos == targetPos ? B[posB] :
-                    (posB == B.length - 1 || B[posB + 1] > A[posA + 1] ? A[posA + 1] : B[posB + 1]))) / 2;
+            return (double)B[posB] / 2 + (double)(anotherPos == targetPos ? B[posB] :
+                    (posB == B.length - 1 || B[posB + 1] > A[posA + 1] ? A[posA + 1] : B[posB + 1])) / 2;
         } else {
             if (mergedPos > targetPos) {
-                // need to jump to left, but A has nothing to change, switch main array from A to B
+                // jump to left
                 if (posA - startA <= 1) {
+                    // A has nothing to change, switch main array from A to B
                     return medianLocate(targetPos, anotherPos, B, startB, posB, A, startA, posA);
                 }
                 return medianLocate(targetPos, anotherPos, A, startA, posA, B, startB, posB);
@@ -66,7 +68,7 @@ public class MedianOfTwoSortedArrays {
         double median = 0;
         int m = A.length, n = B.length, left, right;
 
-        if ((m + n) % 2 == 0) {
+        if (((m + n) & 1) == 0) {
             left = (m + n) / 2 - 1;
             right = left + 1;
         } else {
@@ -76,20 +78,20 @@ public class MedianOfTwoSortedArrays {
 
         // 1. A is not overlapped with B
         if (m == 0 || n == 0) {
-            return (double) (m == 0 ? (B[left] + B[right]) : (A[left] + A[right])) / 2;
+            return  m == 0 ? ((double)B[left] / 2 + (double)B[right] / 2) : ((double)A[left] / 2 + (double)A[right] / 2);
         } else if (A[m - 1] <= B[0]) {
             // {A} {B}
             if (left < m) {
-                median = (double)(A[left] + (right < m ? A[right] : B[right - m])) / 2;
+                median = (double)A[left] / 2 + (double)(right < m ? A[right] : B[right - m]) / 2;
             } else {
-                median = (double)(B[left - m] + B[right - m]) / 2;
+                median = (double)B[left - m] / 2 + (double)B[right - m] / 2;
             }
         } else if (B[n - 1] <= A[0]) {
             // {B} {A}
             if (left < n) {
-                median =(double) (B[left] + (right < n ? B[right] : A[right - n])) / 2;
+                median = (double)B[left] / 2 + (double)(right < n ? B[right] : A[right - n]) / 2;
             } else {
-                median = (double)(A[left - n] + A[right - n]) / 2;
+                median = (double)A[left - n] / 2 + (double)A[right - n] / 2;
             }
         // 2. A is overlapped with B
         } else {
@@ -101,7 +103,6 @@ public class MedianOfTwoSortedArrays {
 
     public static void main (String args[]) {
         System.out.println(new MedianOfTwoSortedArrays().findMedianSortedArrays(
-                new int[] {2, 3},
-        new int[] {1}));
+                new int[] {2, 3, 4}, new int[] {1}));
     }
 }
