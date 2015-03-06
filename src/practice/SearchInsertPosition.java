@@ -26,13 +26,13 @@ public class SearchInsertPosition {
         } else if (end - start <= 1) {
             return start + 1;
         } else {
-            int pos = (end - start) / 2 + start;
+            int pos = ((end - start) >> 1) + start;
             if (A[pos] == target) {
                 return pos;
             } else if (A[pos] < target) {
-                return binarySearch(A, pos + 1, end, target);
+                return binarySearch(A, pos + 1, end - 1, target);
             } else {
-                return binarySearch(A, start, pos - 1, target);
+                return binarySearch(A, start + 1, pos - 1, target);
             }
         }
     }
