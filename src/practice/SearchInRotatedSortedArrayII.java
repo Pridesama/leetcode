@@ -38,7 +38,6 @@ public class SearchInRotatedSortedArrayII {
                 }
                 // all elements are duplicated
                 if (start == end) return false;
-                System.out.println(", start=A[" + start + "]=" + A[start] + ", mid=A[" + mid + "]=" + A[mid] + ", end=A[" + end + "]=" + A[end]);
 
                 if (A[start] > A[mid]) {
                     // original A[0] is in [start, mid], [mid, end] is okay
