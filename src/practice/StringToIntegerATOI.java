@@ -9,7 +9,7 @@ package practice;
  *
  * Created by mukui on 3/6/15.
  */
-public class StringToIntegerAToI {
+public class StringToIntegerATOI {
     public int pow (int digit, int times) {
         return (int)Math.pow(digit, times);
     }
