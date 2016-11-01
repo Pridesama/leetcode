@@ -1,5 +1,7 @@
 package practice;
 
+import model.ListNode;
+
 /**
  * https://leetcode.com/problems/sort-list/
  * https://leetcode.com/problems/merge-two-sorted-lists/
@@ -10,14 +12,6 @@ package practice;
  * Created by mukui on 3/27/15.
  */
 public class SortList {
-    static class ListNode {
-        int val;
-        ListNode next;
-        ListNode (int x) {
-            val = x;
-            next = null;
-        }
-    }
 
     public ListNode sortList(ListNode head) {
         return sortList_insertion(head);
@@ -125,19 +119,8 @@ public class SortList {
     }
 
     public static void main (String args[]) {
-        SortList solution =  new SortList();
-
-        int[] arr = new int[]{1, 1};
-        ListNode head = new ListNode(arr[0]), cursor = head;
-        for (int i = 1; i < arr.length; i ++) {
-            cursor.next = new ListNode(arr[i]);
-            cursor = cursor.next;
-        }
-
-        head = solution.sortList(head);
-        while (null != head) {
-            System.out.print(" " + head.val);
-            head = head.next;
-        }
+        ListNode head = ListNode.link(1, 3, 2);
+        ListNode.print(head);
+        ListNode.print(new SortList().sortList(head));
     }
 }

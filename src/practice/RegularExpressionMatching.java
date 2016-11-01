@@ -1,7 +1,5 @@
 package practice;
 
-import com.sun.tools.javac.util.Assert;
-
 
 /**
  *
@@ -89,7 +87,7 @@ public class RegularExpressionMatching {
 
     public static void main (String args[]) {
         RegularExpressionMatching solution = new RegularExpressionMatching();
-        Assert.check(!solution.isMatch("aaa", "ab*a"));
-        Assert.check(solution.isMatch("aaa", ".*"));
+        System.out.println(!solution.isMatch("aaa", "ab*a"));
+        System.out.println(solution.isMatch("aaa", ".*"));
     }
 }

@@ -1,5 +1,7 @@
 package practice;
 
+import model.ListNode;
+
 /**
  * https://oj.leetcode.com/problems/add-two-numbers/
  *
@@ -15,18 +17,6 @@ package practice;
  * Created by mukui on 1/23/15.
  */
 public class AddTwoNumbers {
-
-    /**
-     * Definition for singly-linked list.
-     */
-     public class ListNode {
-         int val;
-         ListNode next;
-         ListNode(int x) {
-             val = x;
-             next = null;
-         }
-    }
 
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
         if (null == l1 && null == l2) return l1;
@@ -51,38 +41,7 @@ public class AddTwoNumbers {
         return l1;
     }
 
-    public ListNode generate (int[] arr) {
-        if (null != arr && arr.length > 0) {
-            ListNode node = null;
-            for (int i = arr.length - 1; i >= 0; i -= 1) {
-                ListNode tmp = new ListNode(arr[i]);
-                if (null != node) {
-                    tmp.next = node;
-                }
-                node = tmp;
-            }
-            print(node);
-            return node;
-        }
-        return null;
-    }
-
-    public void print (ListNode result) {
-        while (null != result) {
-            System.out.print(result.val);
-            if (null != result.next) {
-                System.out.print(" -> ");
-            }
-            result = result.next;
-        }
-        System.out.println();
-    }
-
     public static void main (String args[]) {
-        AddTwoNumbers solution = new AddTwoNumbers();
-        AddTwoNumbers.ListNode l1 = solution.generate(new int[] {1});
-        AddTwoNumbers.ListNode l2 = solution.generate(new int[] {9, 9});
-        ListNode result = solution.addTwoNumbers(l1, l2);
-        solution.print(result);
+       ListNode.print(new AddTwoNumbers().addTwoNumbers(ListNode.link(2, 4, 3), ListNode.link(5, 6, 4)));
     }
 }

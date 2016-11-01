@@ -1,6 +1,5 @@
 package practice;
 
-import com.sun.tools.javac.util.Assert;
 
 /**
  * https://oj.leetcode.com/problems/zigzag-conversion/

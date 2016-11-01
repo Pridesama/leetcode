@@ -13,7 +13,6 @@ package practice;
 public class SearchInRotatedSortedArrayII {
     public boolean search(int[] A, int target) {
         for (int start = 0, end = A.length - 1; end >= start; ) {
-            System.out.println(start + ", " +  end);
             if (end == start) {
                 return A[start] == target;
             } else if (A[start] == target || A[end] == target) {
