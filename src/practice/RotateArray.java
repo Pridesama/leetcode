@@ -30,4 +30,13 @@ public class RotateArray {
             k = n - (range % k);
         }
     }
+
+    public static void main (String args[]) {
+        int[] nums = new int[]{1, 2, 3, 4, 5, 6, 7};
+        new RotateArray().rotate(nums, 3);
+
+        for (int i = 0; i < nums.length; i ++) {
+            System.out.print(nums[i] + (i == nums.length - 1 ? "\n" : " "));
+        }
+    }
 }
