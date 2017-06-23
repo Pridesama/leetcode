@@ -22,12 +22,48 @@ public class MergeSorted {
         }
     }
 
+
+    /**
+     * 21. Merge Two Sorted Lists
+     * Merge two sorted linked lists and return it as a new list.
+     * The new list should be made by splicing together the nodes of the first two lists.
+     */
+    public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
+        ListNode head = new ListNode(0);
+        ListNode cursor = head;
+        while (null != l1 && null != l2) {
+            if (l1.val <= l2.val) {
+                cursor.next = l1;
+                l1 = l1.next;
+            } else {
+                cursor.next = l2;
+                l2 = l2.next;
+            }
+            cursor = cursor.next;
+        }
+        if (null != l1) cursor.next = l1;
+        if (null != l2) cursor.next = l2;
+
+        return head.next;
+    }
+
     /**
      * 23. Merge k Sorted Lists
      * https://leetcode.com/problems/merge-k-sorted-lists
      */
     public ListNode mergeKLists(ListNode[] lists) {
-        return null;
+        if (lists.length == 0) return null;
+        return mergeKLists(lists, 0, lists.length - 1);
+    }
+
+    public ListNode mergeKLists(ListNode[] lists, int from, int to) {
+        if (to == from) return lists[to];
+        if (to - from == 1) return mergeTwoLists(lists[from], lists[to]);
+        System.out.println("from = " + from  + ", to = " + to + " | " + (to - from) / 2);
+        return mergeTwoLists(
+                mergeKLists(lists, from, (to + from) / 2),
+                mergeKLists(lists, (to + from) / 2 + 1, to)
+        );
     }
 
     public static void main (String args[])  {
@@ -39,12 +75,19 @@ public class MergeSorted {
             System.out.print(A[i] + (i == m + B.length - 1 ? "\n" : " "));
         }
 
+        ListNode.print(new MergeSorted().mergeTwoLists(
+                ListNode.link(1, 3, 7, 8, 12, 19),
+                ListNode.link(1, 2, 3, 4, 5, 6, 7)
+        ));
 
         ListNode[] lists = {
-                ListNode.link(1, 2, 5, 8, 10, 17),
-                ListNode.link(1, 3, 7, 12, 14, 19),
-                ListNode.link(4, 25),
-                ListNode.link(9, 11, 13)
+                ListNode.link(-10,-9,-9,-3,-1,-1,0),
+                ListNode.link(-5),
+                ListNode.link(-4),
+                ListNode.link(-8),
+                ListNode.link(),
+                ListNode.link(-9,-6,-5,-4,-2,2,3),
+                ListNode.link(-3,-3,-2,-1,0)
         };
         ListNode.print(new MergeSorted().mergeKLists(lists));
     }
