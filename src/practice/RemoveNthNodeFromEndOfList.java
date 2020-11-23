@@ -35,7 +35,9 @@ public class RemoveNthNodeFromEndOfList {
                 i++;
             }
 
-            if (null == fast) return head.next;
+            if (null == fast) {
+                return head.next;
+            }
 
             while (null != fast.next) {
                 fast = fast.next;
