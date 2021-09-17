@@ -59,6 +59,45 @@ public class LC209_FindMinSubArrayLength {
         return minLen == Integer.MAX_VALUE ? 0 : minLen;
     }
 
+    public int minSubArrayLen2(int s, int[] nums) {
+        int res = Integer.MAX_VALUE;
+        if(s < 0 )
+            return 0;
+        if(nums.length < 1)
+            return 0;
+        if(nums.length == 1){
+            if(nums[0]>= s)
+                return 1;
+            else
+                return 0;
+        }
+
+        int low = 0;
+        int fast = 0;
+        int length = nums.length;
+        int curRes = 1;
+        int subSum = nums[0];
+        while(fast < length){
+            while(subSum >= s){
+                res = Math.min(res,curRes);
+                subSum -= nums[low];
+                low++;
+                curRes--;
+            }
+            while(subSum <s){
+                fast++;
+                if(fast >= length)
+                    return res;
+                else{
+                    subSum += nums[fast];
+                    curRes++;
+                }
+            }
+
+        }
+        return res;
+    }
+
     public static void main(String[] args) {
         LC209_FindMinSubArrayLength solution = new LC209_FindMinSubArrayLength();
 
@@ -71,14 +110,14 @@ public class LC209_FindMinSubArrayLength {
             put(new Pair<>(new int[]{1, 2, 3, 4, 5}, 11), 3);
         }};
 
-        tests.forEach((input, expect) -> {
-            int[] nums = input.getKey();
-            int s = input.getValue();
-            int actual = solution.minSubArrayLen(s, nums);
-            (expect == actual ? System.out : System.err).println(
-                String.format("nums = %s, n = %d; expect = %d, actual = %d",
-                    String.join(", ", Arrays.toString(nums)),
-                    s, expect, actual));
-        });
+//        tests.forEach((input, expect) -> {
+//            int[] nums = input.getKey();
+//            int s = input.getValue();
+//            int actual = solution.minSubArrayLen2(s, nums);
+//            (expect == actual ? System.out : System.err).println(
+//                String.format("nums = %s, n = %d; expect = %d, actual = %d",
+//                    String.join(", ", Arrays.toString(nums)),
+//                    s, expect, actual));
+//        });
     }
 }
